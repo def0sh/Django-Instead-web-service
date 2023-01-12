@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{#{% if page == 'delete-project' or page == 'delete-skill' %}#}
+
+
+{% block content %}
+<form action="" method="POST" class="w-50 mx-auto form-log text-center">
+     {% csrf_token %}
+     <p>Вы действительно хотите удалить "{{ object }}"?</p>
+
+     <a class="btn  btn-lg btn-primary my-md" href="{% url 'projects' %}">Отмена</a>
+     <input class="btn btn-lg btn-primary my-md " type="submit" name="" value="Подтвердить удаление" />
+</form>
+{% endblock %}

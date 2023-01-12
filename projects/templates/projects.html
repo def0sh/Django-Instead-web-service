@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <div style="background-color: #6c757d;">
+        <section  class="hero-section text-center">
+            <div class="container container--narrow">
+                <div  class="hero-section__box">
+                    <h2>hire your employee <span>faster</span></h2>
+                </div>
+                <div  class="hero-section__search">
+                    <form id="searchForm" class="form" action="{% url 'projects' %}" method="get">
+                        <div style="font-size: 1.5rem">
+{#                            <button type="reset">&times;</button>#}
+                            <input  value="{{ request.GET.q }}" class="input input--text" id="formInput#search"
+                                   type="text" name="q"
+                                   placeholder="search by project name/description/tag"/>
+                        </div>
+                        <input style="border-color: #1693c6;  padding: 0.5em; color: white;" class="fs-3 btn btn-outline-primary btn-lg "
+                               type="submit" value="Search"/>
+                    </form>
+
+                </div>
+            </div>
+            </section>
+    </div>
+
+
+{#    {% for project in projects %}#}
+{#        <a href="{% url 'project' project.slug %}" class=" project text-decoration-none text-reset">#}
+{#            <div class=" card mt-5"#}
+{#                 style="margin-left: 7%;width: 30rem; display:inline-block; background-color: #F5F5F5">#}
+{#                <img src="{{ project.image.url }}" class="card-img-top text-decoration: none;"#}
+{#                     alt="...">#}
+{#                <div class="card-body">#}
+{#                    <h3>{{ project }}</h3>#}
+{#                    <p class="fs-5 card-text">{{ project.description|slice:"100" }}</p>#}
+{#                    <p class="project--rating">#}
+{#                        <span style="font-weight: bold;">положительных отзывов:</span> {{ project.votes_ratio }}</p>#}
+{#                    <p class="project--rating">#}
+{#                        <span style="font-weight: bold;">всего отзывов:</span> {{ project.total_votes }}</p>#}
+{#                    {% for tag in project.tags.all %}#}
+{#                        <a href="{% url 'tag' tag.slug %}"#}
+{#                           class="text-decoration-none tag tag--pill tag--main">{{ tag }}</a>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </a>#}
+{#    {% endfor %}#}
+<section class="projectsList">
+        <div class="container">
+            <div class="grid grid--three">
+
+                {% for project in projects %}
+                <div class="column">
+                    <div class="card project">
+                        <a href="{% url 'project' project.slug %}" class="project text-decoration-none ">
+                            <img class="project__thumbnail" src="{{ project.image.url }}" alt="screenshot" />
+                            <div class="card__body">
+                                <h3 class="project__title">{{ project.title }}</h3>
+                            <p class="fs-5 card-text">{{ project.description|slice:"100" }}</p>
+
+                                <p><a class="text-decoration-none project__author" href="{% url 'user-profile' project.project_owner %}">project owner: {{ project.project_owner }}</a></p>
+
+                                <p class="project--rating">
+                                    <span style="font-weight: bold;">positive reviews:</span>  {{ project.votes_ratio }}%
+                                </p>
+                                 <p class="project--rating">
+                                    <span style="font-weight: bold;">total reviews:</span> {{ project.total_votes }}
+                                </p>
+                                <div class="project__tags">
+                                    {% for tag in project.tags.all %}
+                                    <a href="{% url 'tag' tag.slug %}" class="tag tag--pill tag--main">{{tag}}</a>
+
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+<!-- Pagination -->
+
+    <nav class="fs-4 mt-5" style="margin-left: 9rem">
+        {% if page_obj.has_other_pages %}
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="btn btn-outline-secondary mb-4 fs-4 fw-light"
+                       style="border-radius: 1px; border: 1px solid #d3d3d3">First</a>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><i
+                            class="fas fa-angle-double-left fs-5 "></i></a>
+
+                        {% else %}
+                    <li class="page-item disabled"></li>
+                {% endif %}
+                {% for obj in page_obj.paginator.page_range %}
+                    {% if page_obj.number == obj %}
+                        <li class="page-item active"><span class="page-link"> {{ obj }}<span
+                                class="sr-only"></span></span></li>
+                    {% else %}
+                        <li class="page-item "><a class="page-link" href="?page={{ obj }}">{{ obj }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
+                            class="fas fa-angle-double-right fs-5"></i></a></li>
+                    <a href="?page={{ page_obj.paginator.num_pages }}"
+                       class="btn btn-outline-secondary mb-4 fs-4 fw-light"
+                       style="border-radius: 1px; border: 1px solid #d3d3d3">Last</a>
+                {% else %}
+                    <li class="page-item disabled"></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </nav>
+
+{% endblock content %}

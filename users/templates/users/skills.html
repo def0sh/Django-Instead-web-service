@@ -1,0 +1,38 @@
+<!--HTMX-->
+
+{% if skills %}
+    <div style="display: flex;flex-wrap: wrap; width: 260px"
+         class="col-sm-9 text-secondary">
+        {% for skill in skills %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            <div style="margin: 6px;" class=" skill position-relative">
+                <div>
+                    <a id="linkInfo" class="text-decoration-none" href="{% url 'update-skill' skill.slug %}"
+                       style="list-style-type: none;">{{ skill.name }}</a>
+                </div>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <a class="mt-1 text-decoration-none" style="color: white"
+                       href=""><i
+                            class="fs-6 fa-solid fa-x im im-x-mark-circle-o"
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                            hx-delete="{% url 'delete-skill' skill.slug %}"
+                            hx-target="#dialog"
+                            hx-confirm='Are you sure want to delete skill "{{ skill.name }}" ?'></i></a>
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<script>
+    tippy('#linkInfo', {
+        content: "Edit skill",
+        duration: 350,
+        delay: [0, 200],
+    })
+</script>

@@ -1,0 +1,41 @@
+<!--{% load static %}-->
+{##}
+{##}
+<nav style="background-color: #048BC2;" class="sticky-top bg-gradient navbar navbar-expand-lg  py-2">
+    <a style="margin-left: 30px" class="text-hover navbar-brand ms-4 fs-2 " href="{% url 'profiles' %}">CVstock</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="text-hover collapse navbar-collapse text-center " id="navbarNav">
+        <ul class="navbar-nav text-uppercase fs-3 mx-auto align-top">
+            <li  class=" nav-item active ">
+                <a style="{% if not request.user.is_authenticated %} margin-left: -40px {% else %} margin-left: 70px {% endif %}" class="text-center text-hover text-white nav-link" href="{% url 'profiles' %}">developers <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item ">
+                <a class="text-hover text-white nav-link " href="{% url 'projects' %}">Projects</a>
+            </li>
+
+         {% if request.user.is_authenticated %}
+            <li class="nav-item ">
+                <a class="text-hover text-white nav-link " href="{% url 'inbox' %}">Messages</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-hover text-white nav-link" href="{% url 'account' %}">My account</a>
+            </li>
+        </ul>
+             <span  style=" margin-right: 20px"><a class="log-name" style="text-decoration: none;" href="{% url 'account'%}">{{ request.user.profile.username }}</a></span>
+             <div style="margin-right: 10px" >
+              <a id="btn-log" href="{% url 'logout' %}"class="btn btn-lg btn-dark">Logout</a>
+             </div>
+
+        {% else %}
+
+        <div  style="margin-left: 20px; padding: 3px" >
+                <a id="btn-log" href="{% url 'login' %}"class="btn btn-lg btn-dark">Login/Register</a>
+
+        </div>
+            {% endif %}
+
+    </div>
+</nav>

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<main class="formPage my-xl">
+
+
+    <div class="content-box">
+    <span style="margin-left: 120px">Edit/add skill</span>
+        <div class="mx-auto w-75  form-style">
+
+            <br>
+
+                <a style="margin-left: 13.8%" class="backButton" href="{% url 'account' %}"><i class="im im-angle-left"></i></a>
+
+
+            <form style="" class=" form w-75 mx-auto" method="POST" action="">
+
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div class="m-3 fs-4">
+                    <label for="formInput#text"> {{ field.label }}</label>
+                    {{ field|attr:'rows:4' }}
+                </div>
+                {% endfor %}
+            {% for error in form.errors %}
+        <div style="width: 45rem; height: 55px"  class=" alert alert-danger " id="alert-error">{{ error }}
+        </div>
+    {% endfor %}
+
+                <input style="margin-left: 2.3%" class="btn btn-primary btn-lg  my-md" type="submit" value="Save" />
+            </form>
+        </div>
+    </div>
+</main>
+
+
+
+{% endblock %}

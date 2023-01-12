@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="my-md">
+        <div  class="container">
+            <div class="layout">
+                <div  class="column column--1of3">
+                    <h3 class="singleProject__subtitle">Project stack</h3>
+                    <div class="singleProject__toolStack">
+                        {% for tag in project.tags.all %}
+                            {{ project.owner.name }}
+                            <a href="{% url 'tag' tag.slug %}"
+                               class="text-decoration-none tag tag--pill tag--sub tag--lg">{{ tag }}</a>
+                        {% endfor %}
+                    </div>
+                    {% if project.source_link %}
+                        <a class="text-decoration-none fs-4" href="{{ project.source_link }}" target="_blank">
+                            <i class=" fa-solid fa-arrow-up-right-from-square"> </i> Source code on github
+                        </a>
+                    {% endif %}
+                    <br>
+                    {% if project.demo_link %}
+                        <a class="fs-4 text-decoration-none" href="{{ project.source_link }}" target="_blank">
+                            <i class=" fa-solid fa-arrow-up-right-from-square"></i> Project's demo site
+                        </a>
+                    {% endif %}
+                    <br>
+                    <br>
+                    <div>
+                        <p>Project owner:</p>
+                        <a href="{% url 'user-profile' project.project_owner %}">
+                            <img class="avatar avatar--md" src="{{ project.project_owner.image.url }}" alt="user"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="column column--2of3">
+                    <img class="singleProject__preview" src="{{ project.image.url }}" alt="portfolio thumbnail"/>
+                    <h2 class="singleProject__title">{{ project.title }}</h2>
+                    <h3 class="mark">Project description</h3>
+                    <div class="fs-4">
+                        {{ project.description }}
+                    </div>
+                    <div class="comments">
+                        <h3 class="singleProject__subtitle mark">ratings and reviews</h3>
+                        <p>Total reviews: <span style="font-weight: 450">{{ project.total_votes }}</span></p>
+                        <p>Positive reviews: <span style="font-weight: 450">{{ project.votes_ratio }} %</span></p>
+                        {% if request.user.profile.id in project.reviewers %}
+                            <p style="font-weight: bold">You have already left a review for this project!</p>
+                            <hr>
+                            <h5 class="project--rating">
+                            </h5>
+                            <h5 class="project--rating">
+                            </h5>
+                        {% elif request.user.profile == project.project_owner %}
+                            <br>
+                            <p style="font-weight: bold">You can't leave reviews for your own projects!</p>
+                        {% elif request.user.is_authenticated %}
+                            <form method="POST" class="form" action="{{ request.get_full_path }}">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    <div class="form__field">
+                                        <label>{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                {% endfor %}
+                                <input class="btn btn-primary btn-lg" type="submit" value="Add review"/>
+                            </form>
+                        {% else %}
+                            <p>
+                                <a href="{% url 'login' %}?next={{ request.path }}">Login to leave a review</a>
+                            </p>
+
+                        {% endif %}
+
+                        <div class="commentList">
+                            {% for review in project.review_set.all %}
+                                {% if review.body %}
+                                    <div class="comment">
+                                        <a href="{% url 'user-profile' review.owner %}">
+                                            <img class="avatar avatar--md" src="{{ review.owner.image.url }}"
+                                                 alt="user"/>
+                                        </a>
+                                        <div class="comment__details">
+                                            <a href="{% url 'user-profile' review.owner %}"
+                                               class="comment__author">{{ review.owner.name }}</a>
+                                            <p class="comment__info">{{ review.body|linebreaksbr }}</p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+
+
+{% endblock %}

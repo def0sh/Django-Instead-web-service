@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <main class="home">
+        <section class="hero-section text-center">
+            <div class="container container--narrow">
+                <div class="hero-section__box">
+                    <h2>hire your employee <span>  faster</span></h2>
+                </div>
+                <div class="hero-section__search">
+                    <form id="searchForm" class="form" action="{% url 'profiles' %}" method="get">
+                        <div style="font-size: 1.5rem">
+                            <label for="formInput#search"></label>
+                            <input class="input input--text  " id="formInput#search" type="text" name="q"
+                                   value="{{ request.GET.q }}" placeholder="Find a developer by name/skill"/>
+                        </div>
+                        <input id="btn-log" style="border-color: #1693c6; padding: 0.5em; color: white;"
+                               class="fs-3 btn btn-outline-primary btn-lg " type="submit" value="Search"/>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class=" devlist">
+            <div style="margin-top: 20px" class="container">
+                <div class="grid grid--three">
+                    {% for profile in profiles %}
+
+                        <div class="column card" style=" background-color: #F5F5F5">
+                            <div class="dev">
+                                <a href="{% if request.user == profile.user %} {% url 'account' %} {% else %} {% url 'user-profile' profile.username %} {% endif %}"
+                                   class="text-decoration-none card__body">
+                                    <div class="dev__profile">
+                                        <img src="{{ profile.image.url }}" class="avatar avatar--md" alt="image"/>
+                                        <div class=" dev__meta">
+                                            <h3>{{ profile.user.first_name }} {{ profile.user.last_name }}</h3>
+                                            <h5>{{ profile.intro|slice:"60" }}</h5>
+                                        </div>
+                                    </div>
+                                    <p class="dev__info">{{ profile.bio|truncatechars:"150" }}</p>
+                                    <div class="dev__skills">
+
+                                        {% for skill in profile.skills.all|slice:"3" %}
+                                            <a href="{% url 'skill' skill.slug %}"
+                                               class=" text-decoration-none tag tag--pill tag--main">{{ skill }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pagination -->
+
+    <nav class="fs-4 mt-5" style="margin-left: 7rem">
+        {% if page_obj.has_other_pages %}
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="btn btn-outline-secondary mb-4 fs-4 fw-light"
+                       style="border-radius: 1px; border: 1px solid #d3d3d3">First</a>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><i
+                            class="fas fa-angle-double-left fs-5 "></i></a>
+
+                        {% else %}
+                    <li class="page-item disabled"></li>
+                {% endif %}
+                {% for obj in page_obj.paginator.page_range %}
+                    {% if page_obj.number == obj %}
+                        <li class="page-item active"><span class="page-link"> {{ obj }}<span
+                                class="sr-only"></span></span></li>
+                    {% else %}
+                        <li class="page-item "><a class="page-link" href="?page={{ obj }}">{{ obj }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
+                            class="fas fa-angle-double-right fs-5"></i></a></li>
+                    <a href="?page={{ page_obj.paginator.num_pages }}"
+                       class="btn btn-outline-secondary mb-4 fs-4 fw-light"
+                       style="border-radius: 1px; border: 1px solid #d3d3d3">Last</a>
+                {% else %}
+                    <li class="page-item disabled"></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </nav>
+
+{% endblock content %}
