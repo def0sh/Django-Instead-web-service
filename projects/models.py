@@ -28,7 +28,7 @@ class Project(models.Model):
     slug = models.SlugField(default='', null=False, unique=True, db_index=True)
     image = models.ImageField(null=True, blank=True, default="project_images/default.jpg", upload_to='project_images')
     description = models.TextField(null=True, blank=True)
-    project_owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE, related_name='owner')
+    project_owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE, related_name='projects')
     demo_link = models.CharField(max_length=500, null=True, blank=True)
     source_link = models.CharField(max_length=500, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

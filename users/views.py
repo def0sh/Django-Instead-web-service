@@ -17,9 +17,6 @@ from .forms import CustomUserCreationForm, ProfileForm, SkillForm, MessageForm, 
 from .models import Profile, Skill
 
 
-# Create your views here.
-
-
 class HomeProfile(ListView):
     template_name = 'users/profiles.html'
     model = Profile
@@ -101,7 +98,7 @@ class UserAccount(LoginRequiredMixin, TemplateView):
         profile = self.request.user.profile
         context['profile'] = profile.user.profile
         context['skills'] = profile.skills.all()
-        context['projects'] = profile.project_set.all()
+        context['projects'] = profile.projects.all()
         return context
 
 
@@ -201,6 +198,22 @@ class CreateMessage(SingleObjectMixin, FormView, SuccessMessageMixin):
         message.save()
         return super(CreateMessage, self).form_valid(form)
 
+class MessageView(TemplateView):
+    template_name = 'users/messages.html'
+
+    def get_context_data(self, **kwargs):
+        profile = self.request.user.profile
+        message = profile.messages.get(id=self.kwargs['pk'])
+        context = super(MessageView, self).get_context_data()
+        context['message'] = message
+        if not message.is_read:
+            message.is_read = True
+            message.save()
+        return context
+
+
+class UserLogout(LogoutView):
+    template_name = 'users/login_register.html'
 
 # FBV
 
@@ -231,31 +244,7 @@ class CreateMessage(SingleObjectMixin, FormView, SuccessMessageMixin):
 #     context = {'recipient': recipient, 'form': form, }
 #     return render(request, 'users/message_form.html', context)
 
-
-class MessageView(TemplateView):
-    template_name = 'users/messages.html'
-
-    def get_context_data(self, **kwargs):
-        profile = self.request.user.profile
-        message = profile.messages.get(id=self.kwargs['pk'])
-        context = super(MessageView, self).get_context_data()
-        context['message'] = message
-        if not message.is_read:
-            message.is_read = True
-            message.save()
-        return context
-
-
-class UserLogout(LogoutView):
-    template_name = 'users/login_register.html'
-
-    # LOGOUT_REDIRECT_URL = 'login' in settings.py
-
-
-
-
-
- # FBV
+# LOGOUT_REDIRECT_URL = 'login' in settings.py
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data()
