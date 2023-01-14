@@ -198,6 +198,7 @@ class CreateMessage(SingleObjectMixin, FormView, SuccessMessageMixin):
         message.save()
         return super(CreateMessage, self).form_valid(form)
 
+
 class MessageView(TemplateView):
     template_name = 'users/messages.html'
 

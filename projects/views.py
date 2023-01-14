@@ -10,9 +10,6 @@ from .forms import ProjectForm, ReviewForm
 from django.views.generic import ListView, FormView, CreateView
 
 
-# Create your views here.
-
-
 class ProjectHome(ListView):
     template_name = 'projects.html'
     model = Project
@@ -91,6 +88,7 @@ class ProjectByTag(ListView):
     paginate_by = 6
 
 
+# FBV
 
 # @login_required(login_url="login")
 # def update_project(request, pk):

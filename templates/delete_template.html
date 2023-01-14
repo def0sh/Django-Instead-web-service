@@ -1,6 +1,3 @@
-{#{% extends 'base.html' %}#}
-{##}
-{#{% block content %}#}
 {% load static %}
 
 
@@ -10,8 +7,7 @@
             <br>
             <form hx-post="{{ request.path }}" class="modal-content form"  >
                  {% csrf_token %}
-{#                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'#}
-                <p>Вы действительно хотите удалить "{{ skill }}"?</p>
+                <p>Are you sure want to delete skill "{{ skill }}"?</p>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <input class="btn btn-lg btn-primary my-md " type="submit" value="Удалить" />
 
@@ -20,5 +16,3 @@
     </div>
 
 </main>
-
-{#{% endblock %}#}

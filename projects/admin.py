@@ -2,8 +2,6 @@ from django.contrib import admin
 from users.models import Message
 from .models import Project, Tag,Review
 
-# Register your models here.
-
 
 class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('title',)}

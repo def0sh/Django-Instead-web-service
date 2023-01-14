@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
-from cv_stock_api.permissions import IsOwnerAndAuthOrReadOnly
-from cv_stock_api.serializers import ProjectSerializer, ProfileSerializer
+from instead_api.permissions import IsOwnerAndAuthOrReadOnly, IsProfileOwnerOrReadOnly
+from instead_api.serializers import ProjectSerializer, ProfileSerializer
 from projects.models import Project
 from users.models import Profile
 
@@ -19,7 +19,7 @@ class ProfileViewSet(ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     lookup_field = 'username'
-    permission_classes = (IsOwnerAndAuthOrReadOnly,)
+    permission_classes = (IsProfileOwnerOrReadOnly,)
 
 
 

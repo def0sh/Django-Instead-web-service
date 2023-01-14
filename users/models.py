@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 
-# Create your models here.
-
 
 class Skill(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)

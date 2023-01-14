@@ -117,23 +117,11 @@
                                 {% endfor %}
                                 </div>
                             </div>
-{#                            <hr>#}
-{#                            <div class="row">#}
-{#                                <div class="col-sm-2">#}
-{#                                    <h6 class="mb-0 fs-4">additional skills</h6>#}
-{#                                </div>#}
-{#                                <div class="col-sm-9 text-secondary">#}
-{#                                    доп. навык#}
-{#                                </div>#}
-{#                            </div>#}
-
-
                             <div class="row">
                             </div>
 
                             <div class="row ">
                                 <div class="col-sm-12">
-                                    {#                      <a class=" btn-lg btn btn-info " target="__blank" href="{% url 'edit-account' %}">Edit</a>#}
                                 </div>
                             </div>
                         </div>
@@ -145,7 +133,7 @@
 
 
 {#                    <div style="" class="">#}
-                        <div style="margin-left: 5px" class="parent" >
+                        <div style="margin-left: 5px" >
                             {% for project in profile.project_set.all %}
 
                                 <a href="{% url 'project' project.slug %}"
@@ -176,17 +164,6 @@
             </div>
         </div>
     </div>
-
-
-    <style>
-
-.parent {
-    display: flex;
-    flex-wrap: wrap;
-    align-items:stretch;
-
-}
-    </style>
 
 {% endblock %}
 

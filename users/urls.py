@@ -18,6 +18,4 @@ urlpatterns = [
     path('message/<str:pk>/', views.MessageView.as_view(), name="message"),
 
 
-
-
 ]

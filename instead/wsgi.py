@@ -1,5 +1,5 @@
 """
-WSGI config for cv_stock project.
+WSGI config for instead project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cv_stock.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'instead.settings')
 
 application = get_wsgi_application()

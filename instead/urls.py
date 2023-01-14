@@ -1,4 +1,4 @@
-"""cv_stock URL Configuration
+"""instead URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('projects/', include('projects.urls')),
     path('', include('users.urls')),
-    path('api/', include('cv_stock_api.urls')),
+    path('api/', include('instead_api.urls')),
 
 ]
 
