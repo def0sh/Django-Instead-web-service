@@ -144,6 +144,7 @@ GET http://127.0.0.1:8000/api/v1/projects/<title>
 _information about one project_
 
 ### Will be updated ! :nerd_face:
+/
 
 
 
