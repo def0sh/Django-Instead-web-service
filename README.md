@@ -20,17 +20,17 @@
 * Filtering projects by tags and profiles by skills
 * Full CRUD operations for users from the frontend
 
+### :hammer_and_wrench: Installation:
+
+1. `$ pip install -r requirements.txt`
+2. `python manage.py runserver`
+
 
 ## :atom: The service also has its own REST api with:
 
 * Authorization and authentication by token
 * Permissions
 * CRUD operations
-    
-### :hammer_and_wrench: Installation:
-
-1. `$ pip install -r requirements.txt`
-2. `python manage.py runserver`
 
 ### Api v1 is still in development but there are some basic operations
 
@@ -87,8 +87,6 @@ POST http://127.0.0.1:8000/api/v1/auth/users/
 }
 ```
 
-
-
 #### _Response_:
 
 ```json
@@ -102,7 +100,7 @@ Vary: Accept
     "id": 40
 }
 ```
-
+***
 ### 2. Get token:
 
 #### _Request with Body_
@@ -133,7 +131,21 @@ _For PUT or POST use your token in the  header request._
 
 >You can make requests in readonly if you don't have a token.
 
- 
+#### Also you can:
+
+```http
+GET http://127.0.0.1:8000/api/v1/profiles/<username>
+```
+_Get information about one profile_
+
+```http
+GET http://127.0.0.1:8000/api/v1/projects/<title>
+```
+_information about one project_
+
+### Will be updated ! :nerd_face:
+
+
 
 
 
