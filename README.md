@@ -32,4 +32,115 @@
 1. `$ pip install -r requirements.txt`
 2. `python manage.py runserver`
 
+### Api v1 is still in development but there are some basic operations
+
+## Api documentaton
+
+### Response codes:
+| Code | Status             |  
+|:-----|:-------------------|
+| 200  | Success            |
+| 201  | Created success    |
+| 400  | Bad request        |
+| 401  | Unauthorized       |
+| 404  | Cannot be found    |
+| 405  | Method not allowed |
+| 50X  | Server Error       |
+
+### Example:
+
+#### Request:
+
+```http
+GET http://127.0.0.1:8000/api/v1/
+```
+
+
+#### Response:
+
+```json
+HTTP 200 OK
+Allow: GET, HEAD, OPTIONS
+Content-Type: application/json
+Vary: Accept
+
+{
+    "projects": "http://127.0.0.1:8000/api/v1/projects/",
+    "profiles": "http://127.0.0.1:8000/api/v1/profiles/"
+}
+```
+#### In the example above you can request profiles or projects list
+
+### Get Access Token
+
+### 1. Register:
+
+#### _Request with Body_
+
+```http
+POST http://127.0.0.1:8000/api/v1/auth/users/
+
+{
+    "username": "testuser",
+    "password": "test123!",
+    "email": "test@gmail.com"
+}
+```
+
+
+
+#### _Response_:
+
+```json
+HTTP 201 Created
+Allow: GET, HEAD, OPTIONS
+Content-Type: application/json
+Vary: Accept
+{
+    "email": "test@gmail.com",
+    "username": "testuser",
+    "id": 40
+}
+```
+
+### 2. Get token:
+
+#### _Request with Body_
+
+```http
+POST http://127.0.0.1:8000/api/auth/token/login/
+
+{
+    "username": "testuser",
+    "password": "test123!"
+}
+```
+
+#### _Response_:
+
+```json
+HTTP 200 OK
+Allow: POST, OPTIONS
+Content-Type: application/json
+Vary: Accept
+
+{
+    "auth_token": "04b5fbcbb5de9d7aef3be8e75eb02540bf10d441"
+}
+```
+
+_For PUT or POST use your token in the  header request._
+
+>You can make requests in readonly if you don't have a token.
+
+
+
+
+
+
+
+
+
+
+
 
