@@ -1,4 +1,4 @@
-# :monocle_face: Instead - site where an employer can find a future employee and developers can post their projects.
+# Instead - site where an employer can find a future employee and developers can post their projects.
 ### Profiles
 <img width="945" alt="image_2023-01-13_20-59-08" src="https://user-images.githubusercontent.com/74783488/212376493-f4fc9461-983e-473a-bea3-7a2996be5e5b.png">
 
