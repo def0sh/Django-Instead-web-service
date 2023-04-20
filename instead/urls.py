@@ -24,6 +24,7 @@ test = 'test'
 a = 3
 
 test2 = 'test2'
+hh = 65
 
 urlpatterns = [
     path('admin/', admin.site.urls),
