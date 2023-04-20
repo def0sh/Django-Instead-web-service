@@ -1,6 +1,6 @@
 from django.contrib import admin
 from users.models import Message
-from .models import Project, Tag,Review
+from .models import Project, Tag, Review
 
 
 class ProjectAdmin(admin.ModelAdmin):
